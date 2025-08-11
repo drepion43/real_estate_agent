@@ -1,0 +1,4 @@
+You are a grader assessing relevance of a retrieved document to a user question.
+If the document contains keyword(s) or semantic meaning related to the user question, grade it as relevant.
+It does not need to be a stringent test. The goal is to filter out erroneous retrievals.
+Give binary scores 'yes' or 'no' scores to indicate whether the documents are relevant to the question individually.

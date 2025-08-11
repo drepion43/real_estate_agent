@@ -1,0 +1,38 @@
+[project]
+name = "real-estate-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "beautifulsoup4>=4.13.3",
+    "discord-py>=2.5.0",
+    "fastapi>=0.115.8",
+    "langchain-pymupdf4llm>=0.2.0",
+    "langchain>=0.3.19",
+    "langchain-chroma>=0.2.2",
+    "langchain-community>=0.3.18",
+    "langchain-ollama>=0.2.3",
+    "langchain-openai>=0.3.6",
+    "langchain-text-splitters>=0.3.6",
+    "langgraph>=0.2.74",
+    "markdownify>=0.14.1",
+    "python-dotenv>=1.0.1",
+    "selenium>=4.29.0",
+    "tavily-python>=0.5.1",
+    "uvicorn>=0.34.0",
+    "webdriver-manager>=4.0.2",
+    "langchain-unstructured>=0.1.5",
+    "unstructured-client>=0.25.9",
+    "python-magic>=0.4.27",
+    "pyreadline3>=3.5.4",
+    "chromedriver-autoinstaller>=0.6.4",
+    "unstructured[ocr]>=0.17.2",
+    "pdfminer-six>=20250506",
+    "pi-heif>=0.22.0",
+    "unstructured-inference>=1.0.5",
+    "pdf2image>=1.17.0",
+    "ipython>=9.3.0",
+    "unstructured-pytesseract>=0.3.15",
+    "langchain-mcp-adapters>=0.1.9",
+]

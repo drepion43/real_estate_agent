@@ -1,0 +1,96 @@
+{
+    "청년안심주택": "fetch_board_official",
+
+    "강남구_신논현역_리스트강남": "fetch_gangnamgu_list",
+    "강남구_역삼역_더원역삼": "fetch_gangnamgu_theone",
+    "강남구_선정릉역_모아엘가퍼스트홈": "fetch_gangnamgu_elga",
+    "강남구_선릉역_마에스트로": "fetch_gangnamgu_maestro",
+    "강남구_양재역_도곡써밋타워": "fetch_gangnamgu_dgsummit",
+
+    "강동구_천호역_한강리슈빌": "fetch_gangdongu_cheonho",
+    "강동구_천호역_효성해링턴타워": "fetch_gangdongu_hyosung",
+    "강동구_길동역_길동생활": "fetch_gangdongu_gildong",
+    
+    "강서구_발산역_센터스퀘어": "fetch_gangseogu_centersquarebs",
+    "강서구_화곡역_보눔하우스": "fetch_gangseogu_bonum",
+    "강서구_화곡역_포르투나블루": "fetch_gangseogu_fortuna",
+    "강서구_등촌역_아임2030": "fetch_gangseogu_im2030",
+    "강서구_발산역_엘크루": "fetch_gangseogu_lcrew",
+    "강서구_등촌역_아르체움": "fetch_gangseogu_fltower",
+    "강서구_우장산역_해링턴타워": "fetch_gangseogu_ujs",
+    "강서구_등촌역_센터스퀘어": "fetch_gangseogu_centersquare",
+
+    "관악구_서울대벤처타운역_센터스퀘어": "fetch_gwanakgu_square",
+    "관악구_신림역_최강타워": "fetch_gwanakgu_choigang",
+    "관악구_서울대입구역_BX201": "fetch_gwanakgu_bx201",
+
+    "광진구_건대입구역_더포디엄830": "fetch_gwangjingu_podium",
+    "광진구_강변역_옥산그린타워": "fetch_gwangjingu_greentwoer",
+    "광진구_강변역_센텀힐스한강": "fetch_gwangjingu_centum",
+    "광진구_강변역_비바힐스강변": "fetch_gwangjingu_vival",
+    "광진구_군자역_리마크빌군자": "fetch_gwangjingu_gunja",
+
+    "구로구_개봉역_세이지움개봉": "fetch_gurogu_seizium",
+
+    "노원구_태릉입구역_와이엔타워": "fetch_nowongu_initium",
+    "노원구_태릉입구역_이니티움": "fetch_nowongu_yntower",
+
+    "도봉구_쌍문역_인히어쌍문": "fetch_dobongu_inhere",
+    "도봉구_솔밭공원역_에드가쌍문": "fetch_dobongu_ssangmun",
+
+    "동대문구_회기역_하트리움": "fetch_dondaemungu_hoegi",    
+    "동대문구_회기역_휘경제이스카이시티": "fetch_dondaemungu_hkjsky",
+    "동대문구_장한평역_하트리움": "fetch_dondaemungu_TRIUM",
+    "동대문구_고려대역_리스트안암": "fetch_dondaemungu_listana",
+
+    "동작구_사당역_코브": "fetch_dongjakgu_cove",
+    "동작구_신대방삼거리역_골든노블레스": "fetch_dongjakgu_noblesse",
+    "동작구_노량진역_더써밋타워": "fetch_dongjakgu_thesummit",
+    "동작구_노량진역_더클래식동작": "fetch_dongjakgu_theclassic",
+    "동작구_신대방삼거리역_골드타워": "fetch_dongjakgu_gold",
+
+    "마포구_광흥창역_이랜드PEER신촌": "fetch_mapogu_elandpeer",
+    "마포구_합정역_서교효성해링턴타워": "fetch_mapogu_hyosung",
+    "마포구_상수역_홍대크리원": "fetch_mapogu_creaone",
+
+    "서대문구_충정로역_어바니엘": "fetch_seodaemungu_urbaniel",
+    "서대문구_가좌역_스타타워": "fetch_seodaemungu_startower",
+
+    "서초구_서초역_서초꽃마을": "fetch_seochogu_flower",
+    "서초구_양재역_CONEST": "fetch_seochogu_conest",
+
+    "성동구_마장역_한영스테이": "fetch_board_official",
+    "성동구_장한평역_힐데스하임(U-삼진랜드)": "fetch_board_official",
+
+    "성북구_종암경찰서역_라온프라이빗종암": "fetch_seongbukgu_jongam",
+    "성북구_숭곡초교역_성북펠릭스": "fetch_seongbukgu_felix",
+
+    "송파구_잠실새내역_잠실센트럴파크": "fetch_songpagu_central",
+    "송파구_문정역_마에스트로": "fetch_songpagu_munjeong_maestro",
+    "송파구_잠실새내역_잠실엘타워": "fetch_songpagu_jamsill",
+
+    "영등포구_신도림역_도림브라보": "fetch_yeongdeungpogu_bravo",
+    "영등포구_신길역_준타워": "fetch_yeongdeungpogu_juntower",
+    "영등포구_영등포구청역_포레나당산": "fetch_yeongdeungpogu_forena",
+    "영등포구_신풍역_비스타동원": "fetch_yeongdeungpogu_sinpung",
+
+    "용산구_남영역_용산원효루미니": "fetch_yongsangu_lumini",
+    "용산구_삼각지역_용산베르디움프렌즈": "fetch_yongsangu_yongsan",
+    "용산구_서울역_어반허브서울스테이션": "fetch_yongsangu_urbanhub25",
+    "용산구_남영역_롯데캐슬헤리티지": "fetch_yongsangu_lottecastle",
+
+    "은평구_연신내역_루체스테이션":"fetch_eunpyeongu_luce",
+    "은평구_불광역_호반베르디움":"fetch_eunpyeongu_vertium",
+    "은평구_구산역_구산주택":"fetch_eunpyeongu_gusan",
+    "은평구_연신내역_더스튜디오163":"fetch_eunpyeongu_studio",
+    "은평구_연신내역_루미노816":"fetch_eunpyeongu_lumino",
+
+    "종로구_동묘앞역_청계로벤하임":"fetch_jongrogu_lovenheim",
+    "종로구_동묘앞역_동대문영하우스":"fetch_board_official",
+
+    "중구_동대문역사문화공원역_166타워":"fetch_junggu_166tower",
+
+    "중랑구_먹골역_칼튼테라스":"fetch_jungnangu_carlton",
+    "중랑구_상봉역_제이스타상봉":"fetch_jungnangu_jstar",
+    "중랑구_상봉역_상봉동양엔파트":"fetch_jungnangu_sbnpart"
+}
