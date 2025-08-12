@@ -16,7 +16,7 @@ class BaseAgentState(TypedDict):
 
 class BaseConfig(TypedDict):
     thread_id: str
-    user_id: int
+    user_id: str
 
 
 class BaseAgentConfig(TypedDict):

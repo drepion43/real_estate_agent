@@ -4,7 +4,9 @@ import asyncio
 import uuid
 import requests
 from urllib.parse import urljoin
-from utils import build_routing_data
+
+
+from utils import build_routing_data, routing_to_payload
 import handler
 from save_chat import *
 
@@ -77,11 +79,13 @@ def delete_thread(user_ss):
     tid = user_ss["delete_thread"]
     if tid in user_ss["threads"]:
         del user_ss["threads"][tid]
-        # 만약 삭제 thread가 현 선택 thread일시, 새 thread 생성
+        # 만약 삭제 thread가 현 선택 thread일시
         if user_ss["current_thread"] == tid:
-            user_ss["current_thread"] = next(iter(user_ss["threads"]))
-        else:
-            create_new_thread(user_ss)
+            # 스레드가 남아있는지 확인
+            if user_ss["threads"]:
+                user_ss["current_thread"] = next(iter(user_ss["threads"]))  # 다음 스레드로 변경
+            else:
+                create_new_thread(user_ss)
         user_ss["delete_thread"] = None
 
 async def main() -> None:
@@ -178,20 +182,64 @@ async def main() -> None:
         
         # agent의 응답
         # Routing 처리
-        routing_data = build_routing_data(user_input, login_user, get_current_thread_id(users))
+        routing_payload = build_routing_data(user_input, login_user, get_current_thread_id(users))
         routing_response = requests.post(
             urljoin(BACKEND_URL + "/", "routing_agent/invoke"),
-            json=routing_data
+            json=routing_payload
         )
         if routing_response.status_code == requests.codes.ok:
-            # 핸들링하는 로직 추가 필요
-            response_data = routing_response.json()
-            result_message = response_data.get("state", {}).get("response", "No response")
-            agent_msgs = {"role": "ai", "content": result_message}
-            users["threads"][get_current_thread_id(users)].append(agent_msgs)
-            st.chat_message("ai").write(f"Routing result: {result_message}")
+            routing_result = await handler.routing_response_handler(routing_response, users["threads"][get_current_thread_id(users)])
+            is_routing = True
         else:
             st.chat_message("ai").write("Routing Agent 요청 실패")
-    
+            is_routing = False
+        st.rerun()
+        save_now(login_user, users)
+        if is_routing:
+            # 분기
+            routing_data = routing_response.json()
+            state = routing_data.get("state", {})
+            agent_type = state.get("response", "")
+            # routing Agetn의 분기
+            # pdf Agent 분기
+            if agent_type == "pdf_agent":
+                pdf_payload = routing_to_payload(state, login_user, get_current_thread_id(users))
+                pdf_response = requests.post(
+                    urljoin(BACKEND_URL + "/", "pdf_agent/astream"),
+                    json=pdf_payload,
+                    stream=True
+                )
+                if pdf_response.status_code == requests.codes.ok:
+                    pdf_result = await handler.pdf_response_handler(pdf_response, users["threads"][get_current_thread_id(users)])
+                    st.chat_message("ai").write(pdf_result)
+                    # agent 메세지 추가
+                    agent_msgs = {"role": "ai", "content": pdf_result}
+                    users["threads"][get_current_thread_id(users)].append(agent_msgs)
+                    
+                else:
+                    st.chat_message("ai").write("PDF Agent 요청 실패")
+                st.rerun()
+                save_now(login_user, users)
+            # applyhome 분기
+            elif agent_type == "applyhome_agent":
+                applyhome_payload = routing_to_payload(state, login_user, get_current_thread_id(users))
+                applyhome_response = requests.post(
+                    url = urljoin(BACKEND_URL + "/", "applyhome_agent/astream"),
+                    json=applyhome_payload,
+                    stream=True
+                )
+                if applyhome_response.status_code == requests.codes.ok:
+                    applyhome_result = await handler.applyhome_response_handler(applyhome_response, users["threads"][get_current_thread_id(users)])
+                    st.chat_message("ai").write(applyhome_result)
+                    # agent 메세지 추가
+                    agent_msgs = {"role": "ai", "content": applyhome_result}
+                    users["threads"][get_current_thread_id(users)].append(agent_msgs)
+                else:
+                    st.chat_message("ai").write("ApplyHome Agent 요청 실패")
+                st.rerun()
+                save_now(login_user, users)
+        else:
+            st.rerun()
+            save_now(login_user, users)
 if __name__ == "__main__":
     asyncio.run(main())

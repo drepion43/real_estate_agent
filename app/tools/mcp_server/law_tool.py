@@ -9,6 +9,8 @@ from pathlib import Path
 from langchain_community.document_loaders import PDFPlumberLoader, PyPDFLoader
 from langchain.schema import Document
 from io import BytesIO
+import markdownify
+
 import logging
 logging.getLogger('').setLevel(logging.CRITICAL)
 
@@ -179,7 +181,10 @@ class lawPDF:
             
             loader = PyPDFLoader(save_url)
             docs = loader.load()
-            pdf_info_list.append(docs)
+            docs = self._format_docs(docs)
+            md_content = markdownify.markdownify(docs)
+
+            pdf_info_list.append(md_content)
             
             results["url_list"] = download_urls_list
             results["pdf_info_list"] = pdf_info_list

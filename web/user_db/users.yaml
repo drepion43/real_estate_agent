@@ -1,7 +1,0 @@
-users:
-  abc:
-    name: 김가장
-    password: $2b$12$yS1iRoFK.x3C5WdmDGoLB.DOm9qp99taIh5a7U3aoH8YImI/s6RN6
-  drepion:
-    name: 강길동
-    password: $2b$12$Sr01mKLMcCMUsBLHIp488OY3yvy71WOMjvsZkpQa1bnWlCkLUsS9y

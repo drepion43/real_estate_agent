@@ -1,7 +1,7 @@
 import os
 import json
 
-DATA_DIR = "chat_data"
+DATA_DIR = "/home/data/real_estate_agent/web/chat_data"
 
 def get_user_file(login_user):
     os.makedirs(DATA_DIR, exist_ok=True)

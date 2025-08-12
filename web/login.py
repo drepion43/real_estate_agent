@@ -3,8 +3,8 @@ import yaml
 import bcrypt
 import os
 
-os.makedirs("./user_db", exist_ok=True)
-USER_FILE = "./user_db/users.yaml"
+os.makedirs("/home/data/real_estate_agent/web/user_db", exist_ok=True)
+USER_FILE = "/home/data/real_estate_agent/web/user_db/users.yaml"
 
 def load_users():
     if not os.path.exists(USER_FILE):

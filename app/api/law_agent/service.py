@@ -51,7 +51,7 @@ class LawAgent(BaseAgent):
         self.mcp_client = MultiServerMCPClient({
             "law_tool": {
                 "command": "python3",
-                "args": ["/home/data/app/tools/mcp_server/server.py"],  # MCP server 진입점
+                "args": ["/home/data/real_estate_agent/app/tools/mcp_server/server.py"],  # MCP server 진입점
                 "transport": "stdio",
             }
         })
