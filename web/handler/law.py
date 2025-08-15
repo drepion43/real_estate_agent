@@ -5,7 +5,7 @@ import streamlit as st
 from schema import LawResponse
 
 
-async def law_response_handler(response: Response, users_history: list):
+def law_response_handler(response: Response, users_history: list):
     msg = ""
     for chunk in response.iter_lines():
         if chunk:

@@ -226,7 +226,7 @@ async def main() -> None:
                 stream=True
             )
             if pdf_response.status_code == requests.codes.ok:
-                pdf_result = await handler.pdf_response_handler(pdf_response, users["threads"][get_current_thread_id(users)])
+                pdf_result = handler.pdf_response_handler(pdf_response, users["threads"][get_current_thread_id(users)])
                 # st.chat_message("ai").write(pdf_result)
                 # # agent 메세지 추가
                 # agent_msgs = {"role": "ai", "content": pdf_result}
@@ -245,7 +245,7 @@ async def main() -> None:
                 stream=True
             )
             if applyhome_response.status_code == requests.codes.ok:
-                applyhome_result = await handler.applyhome_response_handler(applyhome_response, users["threads"][get_current_thread_id(users)])
+                applyhome_result = handler.applyhome_response_handler(applyhome_response, users["threads"][get_current_thread_id(users)])
                 # st.chat_message("ai").write(applyhome_result)
                 # # agent 메세지 추가
                 # agent_msgs = {"role": "ai", "content": applyhome_result}
@@ -263,7 +263,7 @@ async def main() -> None:
                 stream=True
             )
             if law_response.status_code == requests.codes.ok:
-                law_result = await handler.law_response_handler(law_response, users["threads"][get_current_thread_id(users)])
+                law_result = handler.law_response_handler(law_response, users["threads"][get_current_thread_id(users)])
                 # st.chat_message("ai").write(law_result)
                 # # agent 메세지 추가
                 # agent_msgs = {"role": "ai", "content": law_result}

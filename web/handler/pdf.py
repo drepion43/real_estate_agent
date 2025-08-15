@@ -4,10 +4,9 @@ import streamlit as st
 
 from schema import PDFResponse
 
-async def pdf_response_handler(response: Response, users_history: list):
+def pdf_response_handler(response: Response, users_history: list):
     msg = ""
     for chunk in response.iter_lines():
-
         if chunk:
             chunk_str = chunk.decode()
             chunk_data = json.loads(chunk_str)

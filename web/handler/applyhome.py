@@ -4,7 +4,7 @@ import streamlit as st
 
 from schema import ApplyhomeResponse
 
-async def applyhome_response_handler(response: Response, users_history: list):
+def applyhome_response_handler(response: Response, users_history: list):
     msg = ""
     for chunk in response.iter_lines():
         if chunk:
