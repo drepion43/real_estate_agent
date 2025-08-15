@@ -1,0 +1,7 @@
+users:
+  abc:
+    name: '123'
+    password: $2b$12$Gpu0RvGKmCaqcC0Qm18vF.i4yM7Vv4Rv7yiYRyOylYtYx0OfRrXtC
+  abcd:
+    name: 김가장
+    password: $2b$12$jb6Fa0Hlos9HycxM82QDQOUcglxO9n/utZ/RkpgsML.bd4pl77qs6

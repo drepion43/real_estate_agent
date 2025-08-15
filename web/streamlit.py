@@ -89,6 +89,7 @@ def delete_thread(user_ss):
         user_ss["delete_thread"] = None
 
 async def main() -> None:
+    
     st.set_page_config(
         page_title=APP_TITLE,
         page_icon=APP_ICON,
@@ -119,19 +120,39 @@ async def main() -> None:
         create_new_thread(users)
     if not users["current_thread"]:
         users["current_thread"] = next(iter(users["threads"]))
+    save_now(login_user, users)
     
     with st.sidebar:
         # 로그아웃
-        if st.button("Logout", use_container_width=True):
+        if st.button("🚪 Logout", use_container_width=True):
             # 세션 정리시
-            # st.session_state.clear()
+            st.session_state.clear()
+            st.warning("로그아웃 되었습니다.")  # 사용자에게 정보 제공
             st.markdown(
                 """
-                <meta http-equiv="refresh" conent="0; url=http://localhost:3000/" />
+                <meta http-equiv="refresh" content="0; url=http://localhost:3000/" />
                 """,
                 unsafe_allow_html=True
             )
             st.stop()
+            
+        # OPENAI API KEY
+        if "open_api_key_temp" not in st.session_state:
+            st.session_state.open_api_key_temp = users.get("openai_api_key", "")
+        st.write("🔑 OpenAI API Key 입력")
+        openai_api_key_input = st.text_input(
+            "API_KEY",
+            type="password",
+            value=st.session_state.open_api_key_temp,
+            key="open_api_key_sidebar"
+        )
+        if st.button("확인", key="confirm_api_key"):
+            users["openai_api_key"] = openai_api_key_input
+            st.session_state.open_api_key_temp = openai_api_key_input
+            st.success("API Key가 저장되었습니다.")
+            save_now(login_user, users)
+        if users.get("openai_api_key"):
+            st.markdown("✅ 현재 API Key 저장됨")
 
         
         st.header(f"{APP_ICON} {APP_TITLE}")
@@ -189,55 +210,68 @@ async def main() -> None:
         )
         if routing_response.status_code == requests.codes.ok:
             routing_result = await handler.routing_response_handler(routing_response, users["threads"][get_current_thread_id(users)])
-            is_routing = True
         else:
             st.chat_message("ai").write("Routing Agent 요청 실패")
-            is_routing = False
-        st.rerun()
-        save_now(login_user, users)
-        if is_routing:
-            # 분기
-            routing_data = routing_response.json()
-            state = routing_data.get("state", {})
-            agent_type = state.get("response", "")
-            # routing Agetn의 분기
-            # pdf Agent 분기
-            if agent_type == "pdf_agent":
-                pdf_payload = routing_to_payload(state, login_user, get_current_thread_id(users))
-                pdf_response = requests.post(
-                    urljoin(BACKEND_URL + "/", "pdf_agent/astream"),
-                    json=pdf_payload,
-                    stream=True
-                )
-                if pdf_response.status_code == requests.codes.ok:
-                    pdf_result = await handler.pdf_response_handler(pdf_response, users["threads"][get_current_thread_id(users)])
-                    st.chat_message("ai").write(pdf_result)
-                    # agent 메세지 추가
-                    agent_msgs = {"role": "ai", "content": pdf_result}
-                    users["threads"][get_current_thread_id(users)].append(agent_msgs)
-                    
-                else:
-                    st.chat_message("ai").write("PDF Agent 요청 실패")
-                st.rerun()
-                save_now(login_user, users)
-            # applyhome 분기
-            elif agent_type == "applyhome_agent":
-                applyhome_payload = routing_to_payload(state, login_user, get_current_thread_id(users))
-                applyhome_response = requests.post(
-                    url = urljoin(BACKEND_URL + "/", "applyhome_agent/astream"),
-                    json=applyhome_payload,
-                    stream=True
-                )
-                if applyhome_response.status_code == requests.codes.ok:
-                    applyhome_result = await handler.applyhome_response_handler(applyhome_response, users["threads"][get_current_thread_id(users)])
-                    st.chat_message("ai").write(applyhome_result)
-                    # agent 메세지 추가
-                    agent_msgs = {"role": "ai", "content": applyhome_result}
-                    users["threads"][get_current_thread_id(users)].append(agent_msgs)
-                else:
-                    st.chat_message("ai").write("ApplyHome Agent 요청 실패")
-                st.rerun()
-                save_now(login_user, users)
+        # 분기
+        routing_data = routing_response.json()
+        state = routing_data.get("state", {})
+        agent_type = state.get("response", "")
+        # routing Agetn의 분기
+        # pdf Agent 분기
+        if agent_type == "pdf_agent":
+            pdf_payload = routing_to_payload(state, login_user, get_current_thread_id(users))
+            pdf_response = requests.post(
+                urljoin(BACKEND_URL + "/", "pdf_agent/astream"),
+                json=pdf_payload,
+                stream=True
+            )
+            if pdf_response.status_code == requests.codes.ok:
+                pdf_result = await handler.pdf_response_handler(pdf_response, users["threads"][get_current_thread_id(users)])
+                # st.chat_message("ai").write(pdf_result)
+                # # agent 메세지 추가
+                # agent_msgs = {"role": "ai", "content": pdf_result}
+                # users["threads"][get_current_thread_id(users)].append(agent_msgs)
+                
+            else:
+                st.chat_message("ai").write("PDF Agent 요청 실패")
+            st.rerun()
+            save_now(login_user, users)
+        # applyhome 분기
+        elif agent_type == "applyhome_agent":
+            applyhome_payload = routing_to_payload(state, login_user, get_current_thread_id(users))
+            applyhome_response = requests.post(
+                url = urljoin(BACKEND_URL + "/", "applyhome_agent/astream"),
+                json=applyhome_payload,
+                stream=True
+            )
+            if applyhome_response.status_code == requests.codes.ok:
+                applyhome_result = await handler.applyhome_response_handler(applyhome_response, users["threads"][get_current_thread_id(users)])
+                # st.chat_message("ai").write(applyhome_result)
+                # # agent 메세지 추가
+                # agent_msgs = {"role": "ai", "content": applyhome_result}
+                # users["threads"][get_current_thread_id(users)].append(agent_msgs)
+            else:
+                st.chat_message("ai").write("ApplyHome Agent 요청 실패")
+            st.rerun()
+            save_now(login_user, users)
+        # law 분기
+        elif agent_type == "law_agent":
+            law_payload = routing_to_payload(state, login_user, get_current_thread_id(users))
+            law_response = requests.post(
+                url = urljoin(BACKEND_URL + "/", "law_agent/astream"),
+                json=law_payload,
+                stream=True
+            )
+            if law_response.status_code == requests.codes.ok:
+                law_result = await handler.law_response_handler(law_response, users["threads"][get_current_thread_id(users)])
+                # st.chat_message("ai").write(law_result)
+                # # agent 메세지 추가
+                # agent_msgs = {"role": "ai", "content": law_result}
+                # users["threads"][get_current_thread_id(users)].append(agent_msgs)
+            else:
+                st.chat_message("ai").write("Law Agent 요청 실패")
+            st.rerun()
+            save_now(login_user, users)
         else:
             st.rerun()
             save_now(login_user, users)

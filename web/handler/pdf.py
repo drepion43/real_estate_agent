@@ -36,5 +36,7 @@ async def pdf_response_handler(response: Response, users_history: list):
                 users_history.append(agent_msgs)
         else:
             break
-
+    st.chat_message("ai").write(msg)
+    agent_msgs = {"role": "ai", "content": msg}
+    users_history.append(agent_msgs)
     return msg

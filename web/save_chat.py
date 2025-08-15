@@ -19,6 +19,7 @@ def load_user_data(login_user):
             return json.load(f)
     
     return {
+        "openai_api_key": None,
         "threads": {},
         "current_thread": None,
         "delete_thread": None
